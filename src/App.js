@@ -2,14 +2,14 @@ import './App.css';
 import image from './2'
 import {useState, useEffect} from 'react'
 
-let waldoCoords = {coords: [117, 608], reference: [1221, 687]}
+let truth = {coords: [284/1221, 767/687], char: 'Waldo'}
 
 function FoundWho(props) {
 
+
   function selection(char, event) {
-    props.guess(char)
+    props.checkAnswer({coords:[props.coords[0]/props.containerDims[0],props.coords[1]/props.containerDims[1]], char: char})
     props.setShow(false)
-    props.choose(true)
   }
 
   return(
@@ -32,37 +32,30 @@ function FoundWho(props) {
 
 function ImageContainer(props){
 
-  let [guessChar, setguessChar] = useState('')
-  let [containerWidth, setContainerWidth] = useState([0,0])
-  let [clickCoords,setClickCoords] = useState([0,0])
-  let [clickCoordsOffset,setClickCoordsOffset] = useState([0,0])
+  let [clickCoords, setClickCoords] = useState([0,0])
   let [show, setShow] = useState(false)
-  let [choose, setChoose] = useState(true)
+  let [containerDims, setContainerDims] = useState([0,0])
 
-  async function handleClick(event) {
-    if(choose){
-    await setClickCoordsOffset([event.pageX - event.target.offsetLeft, event.pageY - event.target.offsetTop]);
-    setguessChar('')
-    setChoose(false)
-     } await setClickCoords([event.pageX , event.pageY]);
-    let containerWidth = event.target.clientWidth;
-    let containerHeight = event.target.clientHeight;
-    await setContainerWidth([containerWidth, containerHeight])
+  function handleClick(event) {
     setShow(!show)
+    setClickCoords([event.pageX, event.pageY])
+    setContainerDims([event.target.clientWidth, event.target.clientHeight])
   }
-  useEffect(() =>
-   {
-    let dist = Math.hypot((clickCoordsOffset[0]/containerWidth[0]- waldoCoords.coords[0]/waldoCoords.reference[0]), (clickCoordsOffset[1]/containerWidth[1]- waldoCoords.coords[1]/waldoCoords.reference[1]))
-    if (dist< 0.025 && guessChar == 'Waldo') {console.log('Got Waldo!')} 
+
+  function checkAnswer(answer) {
+    if(answer.char == truth.char) {
+       if(Math.hypot(answer.coords[0] - truth.coords[0], answer.coords[1] - truth.coords[1]) < 0.04){
+          console.log('You got Waldo!')
+       }
+    }
   }
-  , clickCoordsOffset, containerWidth, guessChar);
-  
+
   return(
     <div className = 'imageContainerContainer'>
      <div className = 'imageContainer' onClick = {handleClick}>
-       <img src = {props.img} ></img>
+       <img src = {props.img}></img>
      </div>
-     <FoundWho coords = {clickCoords} show = {show} setShow = {setShow} guess = {setguessChar} choose = {setChoose}></FoundWho>
+     <FoundWho coords = {clickCoords} show = {show} setShow = {setShow} containerDims = {containerDims} checkAnswer = {checkAnswer}></FoundWho>
     </div>
   )
 }
