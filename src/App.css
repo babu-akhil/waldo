@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Tourney&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+
 
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #264e70;
-  height: 100vh;
+  height: 100%;
 }
 
 .imageContainer {
@@ -49,4 +51,120 @@
   .imageContainer{
   cursor: url('./custom-cursor.svg') 50 50, auto;
   }
+}
+
+.Clock {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Roboto Condensed';
+  color: red;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.popup {
+  font-family: 'Roboto Condensed';
+  position: absolute;
+  top: 180px;
+  font-size: 20px;
+  text-align: center;
+  width: 180px;
+  left: 50%;
+  margin-left: -90px;
+  border-radius: 7px;
+  border:2px solid black;
+  padding: 5px;
+  color: white;
+}
+
+.popup.visible {
+  visibility: visible;
+}
+
+.popup.hidden  {
+  visibility: hidden;
+}
+
+.highscores {
+  background-color: white;
+  padding: 20px 20px 20px 20px;
+  border-radius: 20px;
+  font-family: 'Roboto Condensed';
+  position:absolute;
+  top: 200px;
+  border: 2px solid black;
+}
+
+.highscores .title {
+  text-align: center;
+  font-size: 30px;
+}
+
+.highscores ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  width: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.highscores li {
+  padding-top: 20px;
+}
+
+.highscores li span{
+  display: inline;
+  float: right;
+}
+
+.highscores.hidden{
+  visibility: hidden;
+}
+
+
+.highscores.visible{
+  visibility: visible;
+}
+
+.NameEntry.visible {
+  visibility: visible;
+}
+
+.NameEntry.hidden {
+  visibility: hidden;
+}
+
+.NameEntry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 250px;
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  margin-left: -150px;
+  background-color: white;
+  padding-bottom: 20px;
+  justify-content: space-evenly;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.NameEntry button {
+  font-size: 18px;
+  background-color: blue;
+  color: white;
+  padding: 7px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.NameEntry input{
+  font-size: 20px;
+  width: 220px
 }
